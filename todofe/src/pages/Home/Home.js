@@ -2,17 +2,30 @@ import classNames from 'classnames/bind';
 import styles from './Home.module.scss';
 import ToDoList from '../ToDoList/ToDoList';
 import ToDoFooter from '../ToDoFooter/ToDoFooter';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import APIs, { endpoints } from '~/configs/APIs';
 
 const cx = classNames.bind(styles);
 
 function Home() {
-    const [todos, setTodos] = useState([
-        { id: 1, title: 'Task 1', completed: false },
-        { id: 2, title: 'Task 2', completed: false },
-        { id: 3, title: 'Task 3', completed: false },
-    ]);
+    const [loading, setLoading] = useState(false);
+    const [todos, setTodos] = useState([]);
     const [toggleAllChecked, setToggleAllChecked] = useState(false);
+
+    const loadingTodo = async () => {
+        setLoading(true);
+        try {
+            const res = await APIs.get(endpoints['tasks']);
+            console.log('todo: ', res);
+        } catch (error) {
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        loadingTodo();
+    }, []);
 
     // Khi trạng thái checkbox đã thay đổi thì cập nhật tất cả todos
     const handleToggleAll = () => {
