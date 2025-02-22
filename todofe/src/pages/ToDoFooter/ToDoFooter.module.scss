@@ -1,0 +1,90 @@
+.active {
+    border-color: rgba(175, 47, 47, 0.2);
+}
+
+.footer {
+    color: #777;
+    padding: 12px 15px 29px 15px;
+    height: 20px;
+    text-align: center;
+    border-top: 1px solid #e6e6e6;
+}
+
+.footer:before {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 50px;
+    overflow: hidden;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 8px 0 -3px #f6f6f6, 0 9px 1px -3px rgba(0, 0, 0, 0.2),
+        0 16px 0 -6px #f6f6f6, 0 17px 2px -6px rgba(0, 0, 0, 0.2);
+}
+
+.todo-count {
+    float: left;
+    text-align: left;
+    font-size: 1.3rem;
+}
+
+.todo-count .count {
+    font-weight: 300;
+    font-size: 1.4rem;
+}
+
+.filters {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    position: absolute;
+    right: 0;
+    left: 0;
+}
+
+.filter-item {
+    display: inline;
+}
+
+.filter-link {
+    font-size: 1.3rem;
+    color: inherit;
+    margin: 3px;
+    padding: 3px 7px;
+    text-decoration: none;
+    border: 1px solid transparent;
+    border-radius: 3px;
+}
+
+.filter-link:hover {
+    border-color: rgba(175, 47, 47, 0.1);
+}
+
+.filter-link.active {
+    border-color: rgba(175, 47, 47, 0.2);
+}
+
+.clear-completed,
+html .clear-completed:active {
+    font-size: 1.3rem;
+    color: #999;
+    float: right;
+    position: relative;
+    text-decoration: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.clear-completed:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 430px) {
+    .footer {
+        height: 70px;
+    }
+
+    .filters {
+        bottom: 10px;
+    }
+}
