@@ -76,3 +76,7 @@ h6 {
     color: var(--text-color);
     text-decoration: none !important;
 }
+
+textarea:focus-visible {
+    outline: none;
+}

@@ -1,5 +1,19 @@
 .to-do-list {
-    padding: 3px 10px;
+    max-height: 470px;
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.completed {
+    border-bottom: 1px solid #ededed;
+
+    &:last-child {
+        border: none;
+    }
+
+    .label.completed {
+        border-bottom: none;
+    }
 }
 
 .view {
@@ -7,6 +21,7 @@
     display: flex;
     align-items: center;
     height: 100%;
+    padding: 3px 10px;
 }
 
 .toggle {
@@ -26,29 +41,82 @@
     opacity: 0;
 }
 
-.toggle + .label {
+.toggle + .tasks {
     background-image: url('data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2240%22%20height%3D%2240%22%20viewBox%3D%22-10%20-18%20100%20135%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2250%22%20fill%3D%22none%22%20stroke%3D%22%23ededed%22%20stroke-width%3D%223%22/%3E%3C/svg%3E');
     background-repeat: no-repeat;
     background-position: center left;
 }
 
-.toggle:checked + .label {
+.toggle:checked + .tasks {
     background-image: url('data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2240%22%20height%3D%2240%22%20viewBox%3D%22-10%20-18%20100%20135%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2250%22%20fill%3D%22none%22%20stroke%3D%22%23bddad5%22%20stroke-width%3D%223%22/%3E%3Cpath%20fill%3D%22%235dc2af%22%20d%3D%22M72%2025L42%2071%2027%2056l-4%204%2020%2020%2034-52z%22/%3E%3C/svg%3E');
 }
 
+.tasks {
+    display: flex;
+    flex-direction: column;
+}
+
+.tasks-edit {
+    width: 90%;
+}
+
+.description,
 .label {
     font-size: 1.6rem;
     word-break: break-all;
-    padding: 15px 15px 15px 70px;
+    padding: 15px 15px 5px 70px;
     display: block;
     line-height: 1.2;
     transition: color 0.4s;
+    text-transform: capitalize;
 }
 
-.completed .label {
+.description {
+    list-style-type: square;
+    margin-bottom: 0;
+    padding: 0px 0px 15px 100px;
+}
+
+.label.completed {
     font-size: 1.6rem;
     color: #d9d9d9;
     text-decoration: line-through;
+}
+
+.description.completed {
+    font-size: 1.6rem;
+    color: #d9d9d9;
+    text-decoration: line-through;
+}
+
+.icon {
+    font-size: 1.8rem;
+    color: #999;
+    margin-left: 13px;
+    cursor: pointer;
+}
+
+.icon:hover {
+    .description {
+        display: block;
+    }
+}
+
+.edit {
+    position: relative;
+    margin: 0;
+    width: 100%;
+    font-size: 1.5rem;
+    text-transform: capitalize;
+    font-family: inherit;
+    font-weight: inherit;
+    line-height: 1.4em;
+    color: inherit;
+    border: none;
+    padding: 6px;
+    border-bottom: 1px solid #999;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .destroy {
@@ -80,6 +148,71 @@
     }
 }
 
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+
+    &.active {
+        opacity: 1;
+        visibility: visible;
+        z-index: 1000;
+    }
+
+    .modal-content {
+        background: white;
+        padding: 50px;
+        border-radius: 8px;
+        text-align: center;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .modal-label {
+        font-size: 1.6rem;
+        word-break: break-all;
+        display: block;
+        line-height: 1.2;
+    }
+
+    .btn {
+        font-size: 1.6rem;
+        margin: 30px 45px;
+        padding: 12px 24px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    .delete {
+        background: red;
+        color: white;
+        transition: background 0.3s ease-in-out;
+
+        &:hover {
+            background: #dc3545;
+        }
+    }
+
+    .cancel {
+        background: gray;
+        color: white;
+        transition: background 0.3s ease-in-out;
+
+        &:hover {
+            background: #929292;
+        }
+    }
+}
+
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
     .toggle-all,
     .toggle {
@@ -88,5 +221,17 @@
 
     .toggle {
         height: 40px;
+    }
+}
+
+@media (min-width: 430px) or (max-width: 430px) {
+    .modal {
+        .modal-content {
+            padding: 20px;
+        }
+
+        .btn {
+            margin: 20px 35px;
+        }
     }
 }

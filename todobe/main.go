@@ -3,12 +3,15 @@ package main
 import (
 	"be/src/routes"
 
+	"be/src/utils"
+
 	"github.com/gin-gonic/gin"
 
 	"github.com/gin-contrib/cors"
 )
 
 func main() {
+	utils.InitRedis()
 	r := gin.Default()
 
 	// Middleware CORS: Cho phép frontend gọi API từ localhost:3000

@@ -79,6 +79,71 @@ html .clear-completed:active {
     text-decoration: underline;
 }
 
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+
+    &.active {
+        opacity: 1;
+        visibility: visible;
+        z-index: 1000;
+    }
+
+    .modal-content {
+        background: white;
+        padding: 50px;
+        border-radius: 8px;
+        text-align: center;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .modal-label {
+        font-size: 1.6rem;
+        word-break: break-all;
+        display: block;
+        line-height: 1.2;
+    }
+
+    .btn {
+        font-size: 1.6rem;
+        margin: 30px 45px;
+        padding: 12px 24px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    .delete {
+        background: red;
+        color: white;
+        transition: background 0.3s ease-in-out;
+
+        &:hover {
+            background: #dc3545;
+        }
+    }
+
+    .cancel {
+        background: gray;
+        color: white;
+        transition: background 0.3s ease-in-out;
+
+        &:hover {
+            background: #929292;
+        }
+    }
+}
+
 @media (max-width: 430px) {
     .footer {
         height: 70px;
