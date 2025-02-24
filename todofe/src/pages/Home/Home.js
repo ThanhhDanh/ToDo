@@ -35,12 +35,17 @@ function Home() {
     const handleAddTask = async () => {
         if (!newTaskTitle.trim()) return;
 
+        const newTask = {
+            title: newTaskTitle,
+            description: newTaskDescription,
+            completed: false,
+        };
+
         try {
-            const newTask = { title: newTaskTitle, description: newTaskDescription, completed: false };
             await APIs.post(endpoints['tasks'], newTask);
+            setTodos((prevTodos) => [...prevTodos, newTask]);
             setNewTaskTitle('');
             setNewTaskDescription('');
-            loadingTodo();
         } catch (error) {
             console.error('Error adding task:', error);
         }
