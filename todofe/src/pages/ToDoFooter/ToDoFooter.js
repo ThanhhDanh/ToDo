@@ -2,6 +2,7 @@ import classNames from 'classnames/bind';
 import styles from './ToDoFooter.module.scss';
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
+import { Spinner } from 'react-bootstrap';
 
 const cx = classNames.bind(styles);
 
@@ -86,7 +87,7 @@ function ToDoFooter({ todos, onDeleteTask, setFilter, filter }) {
                         Hủy
                     </button>
                     <button className={cx('btn', 'delete')} onClick={handleClearDeleteConfirmed} disabled={isDeleting}>
-                        {isDeleting ? 'Đang xóa...' : 'Xóa'}
+                        {isDeleting ? <Spinner animation="border" variant="light" /> : 'Xóa'}
                     </button>
                 </div>
             </div>
