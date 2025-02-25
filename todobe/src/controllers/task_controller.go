@@ -33,7 +33,7 @@ func CreateTask(c *gin.Context) {
 	tasks[newTask.ID] = newTask
 	taskLock.Unlock()
 
-	c.JSON(http.StatusCreated, gin.H{"id": newTask.ID})
+	c.JSON(http.StatusCreated, newTask)
 }
 
 // Lấy danh sách tasks
