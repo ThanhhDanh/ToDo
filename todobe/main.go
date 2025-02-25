@@ -13,7 +13,7 @@ func main() {
 
 	// Middleware CORS: Cho phép frontend gọi API từ localhost:3000
 	r.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{"http://localhost:3000", "https://to-do-beige-sigma.vercel.app"},
+		AllowOrigins:     []string{"http://localhost:3000", "https://to-do-thanhhdanh.vercel.app"},
 		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
 		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"},
 		AllowCredentials: true,
