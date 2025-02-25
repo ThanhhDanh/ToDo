@@ -19,6 +19,8 @@ function Home() {
         setLoading(true);
         try {
             const res = await APIs.get(endpoints['tasks']);
+            console.log(res.data);
+
             setTodos(res.data);
         } catch (error) {
             console.error('Error fetching tasks:', error);
@@ -40,10 +42,13 @@ function Home() {
             description: newTaskDescription,
             completed: false,
         };
+        console.log(newTask);
+
         setLoading(true);
         try {
-            await APIs.post(endpoints['tasks'], newTask);
-            setTodos((prevTodos) => [...prevTodos, newTask]);
+            const res = await APIs.post(endpoints['tasks'], newTask);
+            console.log('Response from API:', res.data);
+            setTodos((prevTodos) => [...prevTodos, res.data]);
             setNewTaskTitle('');
             setNewTaskDescription('');
         } catch (error) {
