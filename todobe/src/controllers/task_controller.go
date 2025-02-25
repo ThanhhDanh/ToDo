@@ -3,15 +3,15 @@ package controllers
 import (
 	"be/src/models"
 	"net/http"
-	"strconv"
 	"sync"
+
+	"github.com/google/uuid"
 
 	"github.com/gin-gonic/gin"
 )
 
 var (
-	tasks    = make(map[int]models.Task) // Lưu dữ liệu trong bộ nhớ
-	taskID   = 1
+	tasks    = make(map[string]models.Task) // Lưu dữ liệu trong bộ nhớ
 	taskLock sync.Mutex
 )
 
@@ -29,9 +29,8 @@ func CreateTask(c *gin.Context) {
 	}
 
 	taskLock.Lock()
-	newTask.ID = taskID
-	tasks[taskID] = newTask
-	taskID++
+	newTask.ID = uuid.New().String() // Tạo UUID thay vì số nguyên
+	tasks[newTask.ID] = newTask
 	taskLock.Unlock()
 
 	c.JSON(http.StatusCreated, gin.H{"id": newTask.ID})
@@ -52,7 +51,7 @@ func GetTasks(c *gin.Context) {
 
 // Cập nhật trạng thái task
 func UpdateTask(c *gin.Context) {
-	id, _ := strconv.Atoi(c.Param("id"))
+	id := c.Param("id")
 
 	taskLock.Lock()
 	defer taskLock.Unlock()
@@ -78,7 +77,7 @@ func UpdateTask(c *gin.Context) {
 
 // Xóa task
 func DeleteTask(c *gin.Context) {
-	id, _ := strconv.Atoi(c.Param("id"))
+	id := c.Param("id")
 
 	taskLock.Lock()
 	defer taskLock.Unlock()

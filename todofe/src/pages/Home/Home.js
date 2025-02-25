@@ -40,7 +40,7 @@ function Home() {
             description: newTaskDescription,
             completed: false,
         };
-
+        setLoading(true);
         try {
             await APIs.post(endpoints['tasks'], newTask);
             setTodos((prevTodos) => [...prevTodos, newTask]);
@@ -48,6 +48,8 @@ function Home() {
             setNewTaskDescription('');
         } catch (error) {
             console.error('Error adding task:', error);
+        } finally {
+            setLoading(false);
         }
     };
 

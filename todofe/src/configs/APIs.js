@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'https://todo-xskx.onrender.com/';
+const BASE_URL = 'https://todo-adrq.onrender.com/';
 
 export const endpoints = {
     tasks: '/tasks',

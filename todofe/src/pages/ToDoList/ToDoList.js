@@ -2,6 +2,7 @@ import classNames from 'classnames/bind';
 import styles from './ToDoList.module.scss';
 import APIs, { endpoints } from '~/configs/APIs';
 import { useState } from 'react';
+import { Spinner } from 'react-bootstrap';
 
 const cx = classNames.bind(styles);
 
@@ -14,13 +15,18 @@ function ToDoList({ loading, todos, onToggleChange, onDeleteTask }) {
 
     //Khi cái click vào 1 task
     const handleToggle = async (id) => {
+        if (!id) {
+            console.error('Task Id is undefined, skipping API call');
+            return;
+        }
+
         const updatedTodos = todos.map((todo) => (todo.id === id ? { ...todo, completed: !todo.completed } : todo));
 
-        onToggleChange(updatedTodos); // Cập nhật UI trước
+        // Cập nhật UI ngay lập tức để tránh độ trễ
+        onToggleChange(updatedTodos);
 
         try {
-            const updatedTask = updatedTodos.find((todo) => todo.id === id);
-            await APIs.put(endpoints.tasksid(id), { completed: updatedTask.completed });
+            await APIs.put(endpoints.tasksid(id), { completed: !todos.find((t) => t.id === id).completed });
         } catch (error) {
             console.error('Error updating task:', error);
         }
@@ -71,6 +77,11 @@ function ToDoList({ loading, todos, onToggleChange, onDeleteTask }) {
     return (
         <>
             <div className={cx('to-do-list')}>
+                {loading && (
+                    <div className={cx(['text-center', 'my-3'])}>
+                        <Spinner animation="border" variant="info" />
+                    </div>
+                )}
                 {todos.map((todo) => (
                     <div key={todo.id} className={cx('completed')}>
                         <div className={cx('view')}>
@@ -125,7 +136,7 @@ function ToDoList({ loading, todos, onToggleChange, onDeleteTask }) {
                         Hủy
                     </button>
                     <button className={cx('btn', 'delete')} onClick={handleDeleteConfirmed} disabled={isDeleting}>
-                        {isDeleting ? 'Đang xóa...' : 'Xóa'}
+                        {isDeleting ? <Spinner animation="border" variant="light" /> : 'Xóa'}
                     </button>
                 </div>
             </div>
