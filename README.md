@@ -51,3 +51,31 @@ To Do App
 
   Server sẽ chạy tại http://localhost:3000
 
+- Hướng dẫn sử dụng
+
+  Các chức năng chính:
+  + Thêm công việc mới
+    
+  + Chỉnh sửa công việc (Nhấn đúp để chỉnh sửa)
+    
+  + Xóa công việc (Nhấn vào biểu tượng xóa)
+    
+  + Đánh dấu hoàn thành (Nhấn vào checkbox)
+    
+- Triển khai lên server
+
+1. Backend (Render)
+
+Push code lên GitHub
+
+Vào Render, tạo service mới, kết nối với GitHub repo.
+
+Deploy backend.
+
+2. Frontend (Vercel)
+
+Push code lên GitHub
+
+Vào Vercel, kết nối repo.
+
+Deploy frontend.
