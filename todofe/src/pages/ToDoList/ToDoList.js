@@ -7,6 +7,9 @@ import { Spinner } from 'react-bootstrap';
 const cx = classNames.bind(styles);
 
 function ToDoList({ loading, todos, onToggleChange, onDeleteTask }) {
+    //Xử lý trên mobile để giữ lâu để edit
+    const [pressTimer, setPressTimer] = useState(null);
+    
     const [editTaskId, setEditTaskId] = useState(null);
     const [editTitle, setEditTitle] = useState('');
     const [editDescription, setEditDescription] = useState('');
@@ -109,7 +112,13 @@ function ToDoList({ loading, todos, onToggleChange, onDeleteTask }) {
                                     />
                                 </div>
                             ) : (
-                                <div onDoubleClick={() => handleDoubleClick(todo)} className={cx('tasks')}>
+                                <div 
+                                    onDoubleClick={() => handleDoubleClick(todo)}
+                                    onTouchStart={() => {
+                                        setPressTimer(setTimeout(() => handleDoubleClick(todo), 500)); // Nhấn giữ 0.5s
+                                    }}
+                                    onTouchEnd={() => clearTimeout(pressTimer)}
+                                    className={cx('tasks')}>
                                     <span className={cx('label', { completed: todo.completed })}>{todo.title}</span>
                                     <ul className={cx('description', { completed: todo.completed })}>
                                         {(todo.description ?? '').split('\n').map((line, index) => (
